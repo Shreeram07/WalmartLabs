@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TheBigBox</string>
+    <string name="BASE_URL">https://mobile-tha-server.appspot.com</string>
+    <string name="error_dialog">Something glitchy happened. Please try again!</string>
+    <string name="WALMART">walmartproducts</string>
+</resources>

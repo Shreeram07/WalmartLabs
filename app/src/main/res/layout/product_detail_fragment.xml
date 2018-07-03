@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ProductImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/ProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:text="name"
+        android:textColor="?attr/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ProductImage" />
+
+    <RatingBar
+        android:id="@+id/ProductRatingReview"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1"
+        app:layout_constraintTop_toBottomOf="@+id/ProductName" />
+
+    <TextView
+        android:id="@+id/ReviewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="5dp"
+        android:paddingStart="5dp"
+        android:text="reviewCount"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toEndOf="@id/ProductRatingReview"
+        app:layout_constraintTop_toBottomOf="@+id/ProductName" />
+
+    <TextView
+        android:id="@+id/ProductShortDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:text="shortDesc"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/ProductPrice" />
+
+
+    <TextView
+        android:id="@+id/ProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:text="0"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ProductRatingReview" />
+
+
+    <TextView
+        android:id="@+id/inStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="TextView"
+        android:textColor="?attr/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ProductID" />
+
+    <TextView
+        android:id="@+id/ProductID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:text="ID"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/ProductShortDesc" />
+
+    <TextView
+        android:id="@+id/ProductLongDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="longDesc"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/inStock" />
+
+
+</android.support.constraint.ConstraintLayout>
