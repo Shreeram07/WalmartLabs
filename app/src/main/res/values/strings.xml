@@ -3,4 +3,17 @@
     <string name="BASE_URL">https://mobile-tha-server.appspot.com</string>
     <string name="error_dialog">Something glitchy happened. Please try again!</string>
     <string name="WALMART">walmartproducts</string>
+    <string name="reviewCount">TextView</string>
+    <string name="itemPrice">TextView</string>
+    <string name="itemName">TextView</string>
+    <string name="itemImage">TODO</string>
+    <string name="more_about_this_item">More About this item:</string>
+    <string name="shortdesc">shortDesc</string>
+    <string name="longdesc">longDesc</string>
+    <string name="product_id">Product_ID:</string>
+    <string name="key_features">Key Features:</string>
+    <string name="in_stock">In Stock</string>
+    <string name="_0">0</string>
+    <string name="reviewcount">reviewCount</string>
+    <string name="unlisted_price">Unlisted Price</string>
 </resources>

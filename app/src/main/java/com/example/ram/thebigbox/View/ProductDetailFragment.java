@@ -1,5 +1,8 @@
 package com.example.ram.thebigbox.View;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -40,7 +43,7 @@ public class ProductDetailFragment extends Fragment {
             //Initialize views to their respective ID's
             TextView itemName = detailView.findViewById(R.id.ProductName);
             TextView itemPrice = detailView.findViewById(R.id.ProductPrice);
-            TextView itemID = detailView.findViewById(R.id.ProductID);
+            TextView itemID = detailView.findViewById(R.id.ProductIDSerial);
             TextView itemLongDesc = detailView.findViewById(R.id.ProductLongDesc);
             TextView itemShortDesc = detailView.findViewById(R.id.ProductShortDesc);
             TextView itemReviewCount = detailView.findViewById(R.id.ReviewCount);
@@ -50,15 +53,34 @@ public class ProductDetailFragment extends Fragment {
 
             //Setting up views with resources
             itemName.setText(product.getProductName());
-            itemPrice.setText(product.getPrice());
-            itemLongDesc.setText(fromHtml(product.getLongDescription()));
-            itemShortDesc.setText(Html.fromHtml(product.getShortDescription(), null, new CustomTagHandler()));
-            itemRating.setRating(product.getReviewRating());
-            itemReviewCount.setText(Integer.toString(product.getReviewCount()));
-            itemID.setText(product.getProductId());
-            boolean b = product.getInStock().equals("true");
-            itemInStock.setText(b ? "Yes" : "No");
-            Glide.with(this).load(getString(R.string.BASE_URL) + product.getProductImage()).into(itemImage);
+            if (product.getPrice() != null) {
+                itemPrice.setText(product.getPrice());
+            } else
+                itemPrice.setText(R.string.unlisted_price);
+            if (product.getLongDescription() != null) {
+                itemLongDesc.setText(Html.fromHtml(product.getLongDescription()));
+            } else
+                itemLongDesc.setText("N/A");
+            if (product.getShortDescription() != null) {
+                itemShortDesc.setText(Html.fromHtml(product.getShortDescription(), null, new CustomTagHandler()));
+            } else {
+                itemShortDesc.setText("N/A");
+            }
+            if (product.getReviewRating() != null) {
+                itemRating.setRating(product.getReviewRating());
+            } else itemRating.setRating(0);
+            if (product.getReviewCount() != null) {
+                itemReviewCount.setText("(" + Integer.toString(product.getReviewCount()) + ")");
+            } else {
+                itemReviewCount.setText("N/A");
+            }
+            if (product.getProductId() != null) {
+                itemID.setText(product.getProductId());
+            } else itemID.setText("N/A");
+            itemID.setTypeface(null, Typeface.BOLD);
+            itemInStock.setTextColor(product.getInStock() ? Color.parseColor("#08cc32") : Color.LTGRAY);
+            if (product.getProductImage() != null)
+                Glide.with(this).load(getString(R.string.BASE_URL) + product.getProductImage()).into(itemImage);
 
         }
 

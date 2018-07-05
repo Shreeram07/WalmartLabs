@@ -16,6 +16,7 @@ import com.example.priya.thebigbox.R;
 
 import com.bumptech.glide.Glide;
 import com.example.ram.thebigbox.Model.Product;
+import com.example.ram.thebigbox.Utils.OnBottomReachedListener;
 import com.example.ram.thebigbox.View.ProductDetailActivity;
 
 import java.io.Serializable;
@@ -29,12 +30,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private List<Product> productList;
     private Context context;
+    OnBottomReachedListener onBottomReachedListener;
+
 
     public ProductListAdapter(Context context, List<Product> productList) {
         this.productList = productList;
         this.context = context;
     }
 
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
+
+        this.onBottomReachedListener = onBottomReachedListener;
+    }
 
     @NonNull
     @Override
@@ -46,12 +53,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     //Binding views to the recycler view
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product item = productList.get(position);
-        holder.ProductName.setText(item.getProductName());
-        holder.ProductPrice.setText(item.getPrice());
-        holder.ReviewCount.setText(String.format("%d", (item.getReviewCount())));
-        holder.ReviewRating.setRating(item.getReviewRating());
-        Glide.with(context).load(context.getString(R.string.BASE_URL) + item.getProductImage()).fitCenter().into(holder.ProductImage);
+
+        if (position == productList.size() - 1){
+            onBottomReachedListener.onBottomReached(position);
+            }
+
+        if (!productList.isEmpty()) {
+            Product item = productList.get(position);
+            holder.ProductName.setText(item.getProductName());
+            holder.ProductPrice.setText(item.getPrice());
+            holder.ReviewCount.setText("(" + String.format("%d", (item.getReviewCount())) + ")");
+            holder.ReviewRating.setRating(item.getReviewRating());
+            Glide.with(context).load(context.getString(R.string.BASE_URL) + item.getProductImage()).fitCenter().into(holder.ProductImage);
+        }
     }
 
     @Override

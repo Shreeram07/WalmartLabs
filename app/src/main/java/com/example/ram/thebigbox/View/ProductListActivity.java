@@ -11,11 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.priya.thebigbox.R;
 import com.example.ram.thebigbox.Model.Product;
 import com.example.ram.thebigbox.Model.WalmartApiData;
 import com.example.ram.thebigbox.Adapter.ProductListAdapter;
+import com.example.ram.thebigbox.Utils.OnBottomReachedListener;
 import com.example.ram.thebigbox.Utils.AlertUserDialog;
 import com.google.gson.Gson;
 
@@ -34,7 +36,7 @@ import okhttp3.Response;
 public class ProductListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    RecyclerView.Adapter recyclerAdapter;
+    ProductListAdapter recyclerAdapter;
     LinearLayoutManager layoutManager;
     WalmartApiData walmartData;
     ProgressBar progressBar;
@@ -89,7 +91,6 @@ public class ProductListActivity extends AppCompatActivity {
                     scrolledOutItems = layoutManager.findFirstVisibleItemPosition();
 
                     if (totalItems == totalProducts) {
-                        return;
                     } else {
                         if ((totalProducts - totalItems) >= maxProducts) {
                             maxProducts = 30;
@@ -102,6 +103,7 @@ public class ProductListActivity extends AppCompatActivity {
                         pages++;
                         new AsyncFetch().execute();
                     }
+
                 }
             }
         });
@@ -133,7 +135,9 @@ public class ProductListActivity extends AppCompatActivity {
                     Request request = new Request.Builder().url(API_URI).build();
                     Response response = client.newCall(request).execute();
                     if (response.isSuccessful()) {
-                        return response.body().string();
+                        if (response.body() != null) {
+                            return response.body().string();
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -160,9 +164,15 @@ public class ProductListActivity extends AppCompatActivity {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
-
+                recyclerAdapter.setOnBottomReachedListener(new OnBottomReachedListener() {
+                    @Override
+                    public void onBottomReached(int position) {
+                        Toast.makeText(ProductListActivity.this, "Displaying number of Products: " + walmartData.getTotalProducts(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else AlertUser();
         }
+
 
     }
 
@@ -178,6 +188,6 @@ public class ProductListActivity extends AppCompatActivity {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = null;
         if (manager != null) activeNetwork = manager.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return activeNetwork != null && activeNetwork.isConnected();
     }
 }
